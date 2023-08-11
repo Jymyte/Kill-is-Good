@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class TestLauncherShooty : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[SerializeField] float shootVelocity = 1f;
+	[SerializeField] Animator gunAnimator;
+	[SerializeField] Rigidbody gunProjectile;
+	[SerializeField] Transform gunParticles;
+	[SerializeField] Transform gunShootPoint;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	/* void Start()
+	{
+		
+	} */
+
+	void Update()
+	{
+		if(Input.GetMouseButtonDown(0))
+		{
+			Fire();
+		}
+		
+	}
+
+	void Fire()
+	{
+		gunAnimator.SetTrigger("Shoot");
+		Rigidbody newProjectile = Instantiate<Rigidbody>(gunProjectile, gunShootPoint.position, gunShootPoint.rotation);
+		newProjectile.velocity = gunShootPoint.forward * shootVelocity;
+	}
 }
