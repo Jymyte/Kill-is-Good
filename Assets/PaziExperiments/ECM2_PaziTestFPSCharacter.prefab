@@ -56,8 +56,8 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 80
     OrthographicSize: 5
-    NearClipPlane: 0.1
-    FarClipPlane: 1000
+    NearClipPlane: 0.05
+    FarClipPlane: 500
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -195,7 +195,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1393655175}
+  - {fileID: 7661954416764934264}
   m_Father: {fileID: 3544524702475921609}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -215,8 +215,39 @@ MonoBehaviour:
   gunAnimator: {fileID: 1615513523}
   gunProjectile: {fileID: 6491588468217141932, guid: 66fe778c2d4afc740bdc55e8435fed3a,
     type: 3}
-  gunParticles: {fileID: 0}
+  gunParticles: {fileID: 6282074326432425397, guid: 7d6078af43815cd46afd41ca1e8f64e1,
+    type: 3}
   gunShootPoint: {fileID: 6833097109302275157}
+  lookShootDirection: {fileID: 443331984}
+  crosshairs: {fileID: 0}
+  maximumAngleCompensation: 20
+  lookShootAngleCompensation: 0
+  normalizedCompensation: 0
+  lookShootAngleCompensationExp: 0
+  lookShootAngleCompensationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.13123007
+      outSlope: 0.13123007
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.09366657
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1393655174
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1393655175}
   m_Layer: 0
-  m_Name: GunMeshTransform
+  m_Name: GunMeshSquish&Offset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,13 +271,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1393655174}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.25}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.067, z: 0.163}
   m_LocalScale: {x: 1, y: 1, z: 0.56091}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6817594573796145939}
-  m_Father: {fileID: 984830103}
+  m_Father: {fileID: 7661954416764934264}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1721746572694251680
@@ -272,8 +303,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1721746572694251680}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0.45}
+  m_LocalRotation: {x: -0, y: -0, z: 8.673616e-19, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.518}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -516,8 +547,8 @@ MonoBehaviour:
   _controllerHorizontalSensitivity: 0.5
   _controllerVerticalSensitivity: 0.5
   _clampPitchRotation: 1
-  _minPitchAngle: -80
-  _maxPitchAngle: 80
+  _minPitchAngle: -90
+  _maxPitchAngle: 90
 --- !u!114 &3544524702199365514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,7 +608,7 @@ MonoBehaviour:
   _minAnalogWalkSpeed: 0
   _maxAcceleration: 20
   _brakingDecelerationWalking: 20
-  _groundFriction: 8
+  _groundFriction: 18
   _maxFallSpeed: 40
   _brakingDecelerationFalling: 0
   _fallingLateralFriction: 0.3
@@ -685,7 +716,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6028232033260833831}
   m_LocalRotation: {x: -4.656613e-10, y: 0.000000001862645, z: 0.4080114, w: 0.9129769}
-  m_LocalPosition: {x: 0.024, y: -0.3249999, z: 0.185}
+  m_LocalPosition: {x: 0.024, y: -0.3249999, z: 0.18499999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -715,6 +746,38 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &7366247091399625434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7661954416764934264}
+  m_Layer: 0
+  m_Name: GunMeshTransformScale
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7661954416764934264
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7366247091399625434}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1393655175}
+  m_Father: {fileID: 984830103}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &941299064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -726,6 +789,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3de305d4f25a075458954328cd2a911a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3de305d4f25a075458954328cd2a911a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3de305d4f25a075458954328cd2a911a,
         type: 3}
@@ -765,7 +838,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 3de305d4f25a075458954328cd2a911a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 8.6736174e-19
+      value: 8.673616e-19
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3de305d4f25a075458954328cd2a911a,
         type: 3}
