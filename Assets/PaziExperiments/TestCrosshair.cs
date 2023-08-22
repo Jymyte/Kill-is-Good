@@ -8,6 +8,8 @@ public class TestCrosshair : MonoBehaviour
 {
 	[SerializeField] Image compensatorImage;
 	[SerializeField] float compensatorYPosition;
+	[SerializeField] int decimals = 3;
+	[SerializeField] RectTransform canvasRect;
 	void Start()
 	{
 		compensatorYPosition = compensatorImage.rectTransform.position.y;
@@ -29,5 +31,23 @@ public class TestCrosshair : MonoBehaviour
 			compensatorImage.rectTransform.position.z
 		);
 		
+	}
+	public void CrosshairFromWorldPosition(Vector3 worldPosition)
+	{
+		Vector2 viewportPoint=Camera.main.WorldToViewportPoint(worldPosition);
+		float verticalPoint = (viewportPoint.y*canvasRect.sizeDelta.y)-(canvasRect.sizeDelta.y*0.5f);
+		//verticalPoint = verticalPoint*decimals;
+		verticalPoint = (Mathf.Round(verticalPoint*decimals))/decimals;
+		//verticalPoint = verticalPoint/decimals;
+		
+		Vector2 WorldObject_ScreenPosition=new Vector2(
+		(0f),
+		((verticalPoint)));
+		/* Vector2 WorldObject_ScreenPosition=new Vector2(
+		((viewportPoint.x*canvasRect.sizeDelta.x)-(canvasRect.sizeDelta.x*0.5f)),
+		((viewportPoint.y*canvasRect.sizeDelta.y)-(canvasRect.sizeDelta.y*0.5f))); */
+
+		//now you can set the position of the ui element
+		compensatorImage.rectTransform.anchoredPosition=WorldObject_ScreenPosition;
 	}
 }

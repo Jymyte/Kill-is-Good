@@ -5,31 +5,45 @@ using Unity.Mathematics;
 
 public class TestLauncherShooty : MonoBehaviour
 {
+	[Header("Modify these")]
+	[SerializeField] bool visualizeShootDirection;
+	[SerializeField] bool shootFromViewpoint;
 	[SerializeField] float shootVelocity = 1f;
 	[SerializeField] Animator gunAnimator;
 	[SerializeField] Rigidbody gunProjectile;
 	[SerializeField] Transform gunParticles;
+	[SerializeField] Transform gunMeshTransform;
 	[SerializeField] Transform gunShootPoint;
-	[SerializeField] Transform lookShootDirection;
+	[SerializeField] Transform playerViewpoint;
 	[SerializeField] TestCrosshair crosshairs;
 	[SerializeField] float maximumAngleCompensation = 20f;
+	[SerializeField] AnimationCurve lookShootAngleCompensationCurve;
+
+	[Header("Don't modify these")]
 	[SerializeField] float lookShootAngleCompensation;
 	[SerializeField] float normalizedCompensation;
 	[SerializeField] float lookShootAngleCompensationExp;
-	[SerializeField] AnimationCurve lookShootAngleCompensationCurve;
+	[SerializeField] Vector3 lookShootCompensatedDirection;
+	[SerializeField] Vector3 crosshairWorldPosition;
+	bool crosshairChanged;
+	bool readyToFire = true;
+	//Quaternion gunMeshStartRotation;
 	
 	//float handedness;
 
 	/* void Start()
 	{
-		
+		//gunMeshStartRotation = gunMeshTransform.rotation;
 	} */
 
 	void Update()
 	{
-		if(Input.GetMouseButtonDown(0) && gunAnimator.GetCurrentAnimatorStateInfo(0).IsName("GunIdleBlendTree"))
+		
+		if(Input.GetMouseButton(0) && readyToFire)
+		//if(Input.GetMouseButton(0) && gunAnimator.GetCurrentAnimatorStateInfo(0).IsName("GunIdleBlendTree"))
 		{
 			Fire();
+			readyToFire = false;
 		}
 
 		if(Input.mouseScrollDelta.y != 0f)
@@ -41,20 +55,66 @@ public class TestLauncherShooty : MonoBehaviour
 			/* float */ normalizedCompensation = math.remap(0f, maximumAngleCompensation, 0f, 1f, lookShootAngleCompensation);
 			lookShootAngleCompensationExp = lookShootAngleCompensationCurve.Evaluate(normalizedCompensation)*maximumAngleCompensation;
 
-			crosshairs.UpdateCrosshairCompensator(lookShootAngleCompensationExp);
+			//lookShootAngleCompensationExp = lookShootAngleCompensation; //yeet
 
+			crosshairChanged = true;
+			//crosshairs.UpdateCrosshairCompensator(lookShootAngleCompensationExp);
 		}
 		
 	}
 
+	public void ReadyWeapon() //Called from animation event script
+	{
+		readyToFire = true;
+	}
+
+	void LateUpdate()
+	{
+		lookShootCompensatedDirection = Quaternion.AngleAxis(-lookShootAngleCompensationExp, transform.right) * playerViewpoint.forward; 
+
+		if(crosshairChanged)
+		{
+			crosshairWorldPosition = transform.position + lookShootCompensatedDirection * 50f;
+			crosshairs.CrosshairFromWorldPosition(crosshairWorldPosition);
+
+			//gunMeshTransform.rotation =  transform.rotation * Quaternion.AngleAxis(-lookShootAngleCompensationExp, transform.right);
+			
+			crosshairChanged = false;
+		}
+	}
+
 	void Fire()
 	{
-		Debug.DrawRay(gunShootPoint.position, Quaternion.AngleAxis(-lookShootAngleCompensation, transform.right) * lookShootDirection.forward * 20f, Color.yellow, 5f, true);
+		//lookShootCompensatedDirection = Quaternion.AngleAxis(-lookShootAngleCompensationExp, transform.right) * lookShootDirection.forward;
+		if(visualizeShootDirection)
+		{
+			Debug.DrawRay(gunShootPoint.position, lookShootCompensatedDirection * 200f, Color.yellow, 5f, true);
+		}
 
 		gunAnimator.SetTrigger("Shoot");
-		Rigidbody newProjectile = Instantiate<Rigidbody>(gunProjectile, gunShootPoint.position, Quaternion.AngleAxis(-lookShootAngleCompensation, transform.right));
-		newProjectile.velocity = Quaternion.AngleAxis(-lookShootAngleCompensation, transform.right) * lookShootDirection.forward * shootVelocity;
 		Instantiate(gunParticles, gunShootPoint.position, gunShootPoint.rotation, gameObject.transform);
 
+		if(shootFromViewpoint) 
+		{
+			Rigidbody newProjectile = Instantiate<Rigidbody>(gunProjectile, playerViewpoint.position, Quaternion.LookRotation(lookShootCompensatedDirection, Vector3.up));
+			newProjectile.velocity = lookShootCompensatedDirection * shootVelocity;
+			TestLauncherSlug projectileScript = newProjectile.GetComponent<TestLauncherSlug>(); 
+			projectileScript.InitializeParallaxProjectile(gunShootPoint.position);
+		}
+		else
+		{
+			Rigidbody newProjectile = Instantiate<Rigidbody>(gunProjectile, gunShootPoint.position, Quaternion.LookRotation(lookShootCompensatedDirection, Vector3.up));
+			newProjectile.velocity = lookShootCompensatedDirection * shootVelocity;
+			//TestLauncherSlug projectileScript = newProjectile.GetComponent<TestLauncherSlug>(); 
+		}
+		
+		
+
 	}
+
+	/* void OnDrawGizmos()
+	{
+		Gizmos.color = Color.black;
+		Gizmos.DrawSphere(crosshairWorldPosition, 0.5f);
+	} */
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 443331984}
   - component: {fileID: 443331985}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CM vcam1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 886509190}
   - component: {fileID: 886509189}
   - component: {fileID: 886509188}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 984830103}
   - component: {fileID: 180281830}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,19 +211,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2394ff31bf7dc14282b608954dd53de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visualizeShootDirection: 0
+  shootFromViewpoint: 1
   shootVelocity: 50
   gunAnimator: {fileID: 1615513523}
   gunProjectile: {fileID: 6491588468217141932, guid: 66fe778c2d4afc740bdc55e8435fed3a,
     type: 3}
   gunParticles: {fileID: 6282074326432425397, guid: 7d6078af43815cd46afd41ca1e8f64e1,
     type: 3}
+  gunMeshTransform: {fileID: 543450652758930067}
   gunShootPoint: {fileID: 6833097109302275157}
-  lookShootDirection: {fileID: 443331984}
+  playerViewpoint: {fileID: 443331984}
   crosshairs: {fileID: 0}
-  maximumAngleCompensation: 20
-  lookShootAngleCompensation: 0
-  normalizedCompensation: 0
-  lookShootAngleCompensationExp: 0
+  maximumAngleCompensation: 40
   lookShootAngleCompensationCurve:
     serializedVersion: 2
     m_Curve:
@@ -248,6 +248,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  lookShootAngleCompensation: 0
+  normalizedCompensation: 0
+  lookShootAngleCompensationExp: 0
+  lookShootCompensatedDirection: {x: 0, y: 0, z: 0}
+  crosshairWorldPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1393655174
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +262,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1393655175}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GunMeshSquish&Offset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6833097109302275157}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GunBarrelPoint
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
@@ -320,7 +325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3544524701237569630}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +360,7 @@ GameObject:
   - component: {fileID: 3544524701403656202}
   - component: {fileID: 3544524701403656205}
   - component: {fileID: 1955802174}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -475,7 +480,7 @@ GameObject:
   - component: {fileID: 3544524702199365515}
   - component: {fileID: 3544524702199365514}
   - component: {fileID: 3544524702199365517}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ECM2_PaziTestFPSCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -547,8 +552,8 @@ MonoBehaviour:
   _controllerHorizontalSensitivity: 0.5
   _controllerVerticalSensitivity: 0.5
   _clampPitchRotation: 1
-  _minPitchAngle: -90
-  _maxPitchAngle: 90
+  _minPitchAngle: -89.5
+  _maxPitchAngle: 89.5
 --- !u!114 &3544524702199365514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -666,7 +671,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3544524702475921609}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -701,7 +706,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6817594573796145939}
   - component: {fileID: 1615513523}
-  m_Layer: 0
+  - component: {fileID: 7269887675306329049}
+  m_Layer: 6
   m_Name: GunHolderHand
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
@@ -746,6 +752,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7269887675306329049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6028232033260833831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a6db97350ef01845b76ad3673f4ee1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  launcherScript: {fileID: 180281830}
 --- !u!1 &7366247091399625434
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,7 +774,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7661954416764934264}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GunMeshTransformScale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -785,6 +804,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6817594573796145939}
     m_Modifications:
+    - target: {fileID: -8693144804996578944, guid: 3de305d4f25a075458954328cd2a911a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3de305d4f25a075458954328cd2a911a,
         type: 3}
       propertyPath: m_RootOrder
@@ -865,6 +889,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ae4135750b19c484aba255879b38df8b, type: 2}
+    - target: {fileID: -7084668758054158947, guid: 3de305d4f25a075458954328cd2a911a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -5972267576642087260, guid: 3de305d4f25a075458954328cd2a911a,
         type: 3}
       propertyPath: m_CastShadows
@@ -895,6 +924,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f1ab311cc94450b44b094c5ba478c5c2, type: 2}
+    - target: {fileID: -357492444703402380, guid: 3de305d4f25a075458954328cd2a911a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -36451006856430675, guid: 3de305d4f25a075458954328cd2a911a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 36841866994647417, guid: 3de305d4f25a075458954328cd2a911a,
         type: 3}
       propertyPath: m_CastShadows
@@ -910,6 +949,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CannonWeapon2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3de305d4f25a075458954328cd2a911a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3110285341108581206, guid: 3de305d4f25a075458954328cd2a911a,
         type: 3}
       propertyPath: m_CastShadows
@@ -920,6 +964,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f1ab311cc94450b44b094c5ba478c5c2, type: 2}
+    - target: {fileID: 3795877302733296785, guid: 3de305d4f25a075458954328cd2a911a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4985746348809953780, guid: 3de305d4f25a075458954328cd2a911a,
         type: 3}
       propertyPath: m_CastShadows
@@ -930,6 +979,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f1ab311cc94450b44b094c5ba478c5c2, type: 2}
+    - target: {fileID: 5351775402381675747, guid: 3de305d4f25a075458954328cd2a911a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7480562515338280850, guid: 3de305d4f25a075458954328cd2a911a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8336622444078203765, guid: 3de305d4f25a075458954328cd2a911a,
         type: 3}
       propertyPath: m_CastShadows
@@ -940,6 +999,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f1ab311cc94450b44b094c5ba478c5c2, type: 2}
+    - target: {fileID: 8710762530463217359, guid: 3de305d4f25a075458954328cd2a911a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3de305d4f25a075458954328cd2a911a, type: 3}
 --- !u!4 &543450652758930067 stripped
