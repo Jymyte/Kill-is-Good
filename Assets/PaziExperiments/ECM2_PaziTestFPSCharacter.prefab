@@ -214,15 +214,6 @@ MonoBehaviour:
   visualizeShootDirection: 0
   shootFromViewpoint: 1
   shootVelocity: 50
-  gunAnimator: {fileID: 1615513523}
-  gunProjectile: {fileID: 6491588468217141932, guid: 66fe778c2d4afc740bdc55e8435fed3a,
-    type: 3}
-  gunParticles: {fileID: 6282074326432425397, guid: 7d6078af43815cd46afd41ca1e8f64e1,
-    type: 3}
-  gunMeshTransform: {fileID: 543450652758930067}
-  gunShootPoint: {fileID: 6833097109302275157}
-  playerViewpoint: {fileID: 443331984}
-  crosshairs: {fileID: 0}
   maximumAngleCompensation: 40
   lookShootAngleCompensationCurve:
     serializedVersion: 2
@@ -248,6 +239,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  gunAnimator: {fileID: 1615513523}
+  gunProjectile: {fileID: 6491588468217141932, guid: 66fe778c2d4afc740bdc55e8435fed3a,
+    type: 3}
+  gunParticles: {fileID: 6282074326432425397, guid: 7d6078af43815cd46afd41ca1e8f64e1,
+    type: 3}
+  gunMeshTransform: {fileID: 543450652758930067}
+  gunShootPoint: {fileID: 6833097109302275157}
+  playerViewpoint: {fileID: 443331984}
+  crosshairs: {fileID: 0}
   lookShootAngleCompensation: 0
   normalizedCompensation: 0
   lookShootAngleCompensationExp: 0
@@ -479,7 +479,7 @@ GameObject:
   - component: {fileID: 3544524702199365512}
   - component: {fileID: 3544524702199365515}
   - component: {fileID: 3544524702199365514}
-  - component: {fileID: 3544524702199365517}
+  - component: {fileID: 251349904208809053}
   m_Layer: 6
   m_Name: ECM2_PaziTestFPSCharacter
   m_TagString: Untagged
@@ -592,7 +592,7 @@ MonoBehaviour:
     impartPlatformRotation: 0
     impartPlatformVelocity: 0
   _minSlopeLimit: 0.7069833
---- !u!114 &3544524702199365517
+--- !u!114 &251349904208809053
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -601,7 +601,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3544524702199365516}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff2118720b1b70f41aaf198a7f556395, type: 3}
+  m_Script: {fileID: 11500000, guid: eb681c54e5b3e3e498d294525d1a5705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _inputActions: {fileID: -944628639613478452, guid: 216200a53981723469659f2be0cef848,

@@ -6,8 +6,11 @@ public class TestLauncherSlug : MonoBehaviour
 {
 	[SerializeField] bool visualizeProjectilePath;
 	[SerializeField] float coolingSpeed = 1f;
+	[SerializeField] float impactPowerThreshold;
+	[SerializeField] ParticleSystem impactParticles;
 	[SerializeField] float parallaxCorrectSpeed = 1f;
 	[SerializeField] AnimationCurve parallaxCorrectCurve;
+	[SerializeField] AnimationCurve parallaxCorrectCurveIfObstructed;
 	[SerializeField] Transform slugVisuals;
 	[SerializeField] ParticleSystem slugFlareParticles;
 	[SerializeField] AnimationCurve flareSizeCurve;
@@ -58,6 +61,42 @@ public class TestLauncherSlug : MonoBehaviour
 		slugVisuals.position = transform.position + projectileParallaxOffset;
 
 	}
+	void OnCollisionEnter(Collision collision)
+	{
+		Debug.Log($"{collision.impulse.magnitude}");
+		//if(collision.impulse.magnitude > impactPowerThreshold)
+		//{
+			//Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal, Color.white, 1.5f); //Visualize hit normal
+			//Debug.DrawRay(transform.position, slugRb.velocity.normalized, Color.yellow, 1.5f); //Visualize new projectile travel direction
+			//Debug.DrawRay(transform.position, Vector3.Slerp(collision.contacts[0].normal, slugRb.velocity.normalized, .5f), Color.magenta, 1.5f); //Visualize particles direction
+			/* impactParticles.transform.position = collision.contacts[0].point;
+			impactParticles.transform.rotation = Quaternion.LookRotation(Vector3.Slerp(collision.contacts[0].normal, slugRb.velocity.normalized, .5f), Vector3.up);
+			impactParticles.Play(); */
+			ParticleSystem impactSparks = Instantiate<ParticleSystem>(
+				impactParticles, collision.contacts[0].point, 
+				Quaternion.LookRotation(Vector3.Slerp(
+					collision.contacts[0].normal, 
+					slugRb.velocity.normalized, 
+					.5f), 
+				Vector3.up));
+			//Debug.Break();
+		//}
+
+		for (int i = 0; i < collision.contacts.Length; i++)
+		{
+			//Debug.DrawRay(collision.contacts[i].point, collision.contacts[i].normal, Color.yellow, 1f);
+			
+		}
+		/* foreach (ContactPoint contact in collision.contacts)
+		{
+			//Vector3 impulseForce = contact.impulse;
+		}
+		if (collision.relativeVelocity.magnitude > 2)
+		{
+			//audioSource.Play();
+
+		} */
+	}
 
 	void Update()
 	{
@@ -83,13 +122,14 @@ public class TestLauncherSlug : MonoBehaviour
 		if(currentProjectileParallax > 0f)
 		{
 			currentProjectileParallax = Mathf.MoveTowards(currentProjectileParallax, 0f, Time.deltaTime * parallaxCorrectSpeed);
-			// Parallax correction speed must increase if the projectile slows down significantly or tumbles down or rolls to prevent visually slowly hovering to its true position
-			// But it must instead be reduced to zero if the projectile gets lodged in a surface to make sure no visual hovering appears at all
+			// Parallax correction may need to increase if the projectile slows down significantly or tumbles down or rolls to prevent visually slowly hovering to its true position
+			// But it should instead be reduced to zero if the projectile gets abruptly lodged in a surface to make sure no visual hovering appears at all
+			// This depends on the desired behaviour of the projectile and how bad the hovering problem turns out to be
 		}
 
 		float easedCurrentParallax;
-		//easedCurrentParallax = -(Mathf.Cos(Mathf.PI * currentProjectileParallax) - 1f) / 2f; //ease in out sine
-		easedCurrentParallax = parallaxCorrectCurve.Evaluate(currentProjectileParallax);
+		//easedCurrentParallax = -(Mathf.Cos(Mathf.PI * currentProjectileParallax) - 1f) / 2f; //Ease in out sine
+		easedCurrentParallax = parallaxCorrectCurve.Evaluate(currentProjectileParallax); //Ease using curve field
 		slugVisuals.position = transform.position + projectileParallaxOffset * easedCurrentParallax;
 		Debug.DrawLine(transform.position, slugVisuals.position, Color.green, Time.deltaTime, false);
 	}
@@ -98,7 +138,7 @@ public class TestLauncherSlug : MonoBehaviour
 		if(visualizeProjectilePath)
 		{
 			Debug.DrawLine(lastPosition, transform.position, Color.red, 3f);
-			Debug.DrawRay(transform.position, transform.forward * .2f, new Color(1f, 0.2f, 0f, 1f));
+			//Debug.DrawRay(transform.position, transform.forward * .2f, new Color(1f, 0.2f, 0f, 1f)); //Forward pointing ray
 		}
 		
 
@@ -106,9 +146,9 @@ public class TestLauncherSlug : MonoBehaviour
 
 		currentProjectileSpeed = slugRb.velocity.magnitude;
 	}
-	void OnDrawGizmos()
+	/* void OnDrawGizmos()
 	{
 		Gizmos.color = new Color(1f, .2f, 0f, 1f);
-        Gizmos.DrawMesh(slugMesh, -1, transform.position, transform.rotation);
-	}
+		Gizmos.DrawMesh(slugMesh, -1, transform.position, transform.rotation);
+	} */
 }
