@@ -9,17 +9,20 @@ public class TestLauncherShooty : MonoBehaviour
 	[SerializeField] bool visualizeShootDirection;
 	[SerializeField] bool shootFromViewpoint;
 	[SerializeField] float shootVelocity = 1f;
+	[SerializeField] float maximumAngleCompensation = 20f;
+	[SerializeField] AnimationCurve lookShootAngleCompensationCurve;
+
+	[Header("References")]
 	[SerializeField] Animator gunAnimator;
 	[SerializeField] Rigidbody gunProjectile;
 	[SerializeField] Transform gunParticles;
 	[SerializeField] Transform gunMeshTransform;
 	[SerializeField] Transform gunShootPoint;
 	[SerializeField] Transform playerViewpoint;
+	[Header("Scene References")]
 	[SerializeField] TestCrosshair crosshairs;
-	[SerializeField] float maximumAngleCompensation = 20f;
-	[SerializeField] AnimationCurve lookShootAngleCompensationCurve;
 
-	[Header("Don't modify these")]
+	[Header("Internal")]
 	[SerializeField] float lookShootAngleCompensation;
 	[SerializeField] float normalizedCompensation;
 	[SerializeField] float lookShootAngleCompensationExp;
@@ -61,6 +64,7 @@ public class TestLauncherShooty : MonoBehaviour
 			//crosshairs.UpdateCrosshairCompensator(lookShootAngleCompensationExp);
 		}
 		
+		
 	}
 
 	public void ReadyWeapon() //Called from animation event script
@@ -88,7 +92,16 @@ public class TestLauncherShooty : MonoBehaviour
 		//lookShootCompensatedDirection = Quaternion.AngleAxis(-lookShootAngleCompensationExp, transform.right) * lookShootDirection.forward;
 		if(visualizeShootDirection)
 		{
-			Debug.DrawRay(gunShootPoint.position, lookShootCompensatedDirection * 200f, Color.yellow, 5f, true);
+			if(shootFromViewpoint)
+			{
+				Debug.DrawRay(gunShootPoint.position, lookShootCompensatedDirection * 200f, Color.yellow, 5f, true);
+
+			}
+			else
+			{
+				Debug.DrawRay(playerViewpoint.position, lookShootCompensatedDirection * 200f, Color.yellow, 5f, true);
+
+			}
 		}
 
 		gunAnimator.SetTrigger("Shoot");
