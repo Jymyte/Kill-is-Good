@@ -7,13 +7,17 @@ public class PatrolState : BaseState
   public int waypointIndex;
   public float waitTimer;
 
-  //private Monster monster;
+  //private enemy enemy;
   public override void Enter() {
 
   }
 
   public override void Perform() {
     PatrolCycle();
+
+    if (enemy.CanSeePlayer()) {
+      stateMachine.ChangeState(new AttackState());
+    };
   }
 
   public override void Exit() {
@@ -21,14 +25,14 @@ public class PatrolState : BaseState
   }
 
   public void PatrolCycle() {
-    if(monster.Agent.remainingDistance < 0.2f) {
+    if(enemy.Agent.remainingDistance < 0.2f) {
       waitTimer += Time.deltaTime;
       if (waitTimer > 1.5 ) {
-        if (waypointIndex < monster.path.waypoints.Count -1 )
+        if (waypointIndex < enemy.path.waypoints.Count -1 )
           waypointIndex++;
         else
           waypointIndex = 0;
-        monster.character.MoveToLocation(monster.path.waypoints[waypointIndex].position);
+        enemy.character.MoveToLocation(enemy.path.waypoints[waypointIndex].position);
         waitTimer = 0;
       }
     }

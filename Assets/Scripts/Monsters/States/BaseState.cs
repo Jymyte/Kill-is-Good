@@ -1,6 +1,6 @@
  public abstract class BaseState
 {
-  public Monster monster;
+  public Enemy enemy;
   public StateMachine stateMachine;
 
   public abstract void Enter();

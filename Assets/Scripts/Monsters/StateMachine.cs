@@ -5,11 +5,9 @@ using UnityEngine;
 public class StateMachine : MonoBehaviour
 {
   public BaseState activeState;
-  public PatrolState patrolState;
  
   public void Initialize() {
-    patrolState = new PatrolState();
-    ChangeState(patrolState);
+    ChangeState(new PatrolState());
   } 
 
   // Update is called once per frame
@@ -28,7 +26,7 @@ public class StateMachine : MonoBehaviour
 
     if (activeState != null) {
       activeState.stateMachine = this;
-      activeState.monster = GetComponent<Monster>();
+      activeState.enemy = GetComponent<Enemy>();
       activeState.Enter();
     }
   }
