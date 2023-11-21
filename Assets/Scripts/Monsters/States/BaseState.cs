@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
-
-public abstract class BaseState : MonoBehaviour
+ public abstract class BaseState
 {
   public Monster monster;
   public StateMachine stateMachine;

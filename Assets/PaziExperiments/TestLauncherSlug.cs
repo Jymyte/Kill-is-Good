@@ -63,7 +63,7 @@ public class TestLauncherSlug : MonoBehaviour
 	}
 	void OnCollisionEnter(Collision collision)
 	{
-		Debug.Log($"{collision.impulse.magnitude}");
+		//Debug.Log($"{collision.impulse.magnitude}");
 		//if(collision.impulse.magnitude > impactPowerThreshold)
 		//{
 			//Debug.DrawRay(collision.contacts[0].point, collision.contacts[0].normal, Color.white, 1.5f); //Visualize hit normal

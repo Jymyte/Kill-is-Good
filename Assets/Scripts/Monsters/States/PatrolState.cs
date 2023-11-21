@@ -5,6 +5,8 @@ using UnityEngine;
 public class PatrolState : BaseState
 {
   public int waypointIndex;
+  public float waitTimer;
+
   //private Monster monster;
   public override void Enter() {
 
@@ -20,11 +22,15 @@ public class PatrolState : BaseState
 
   public void PatrolCycle() {
     if(monster.Agent.remainingDistance < 0.2f) {
-      if (waypointIndex < monster.path.waypoints.Count -1 )
-        waypointIndex++;
-      else
-        waypointIndex = 0;
-      monster.Agent.SetDestination(monster.path.waypoints[waypointIndex].position);
+      waitTimer += Time.deltaTime;
+      if (waitTimer > 1.5 ) {
+        if (waypointIndex < monster.path.waypoints.Count -1 )
+          waypointIndex++;
+        else
+          waypointIndex = 0;
+        monster.character.MoveToLocation(monster.path.waypoints[waypointIndex].position);
+        waitTimer = 0;
+      }
     }
   }
 }
