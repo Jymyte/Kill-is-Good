@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackState : BaseState
@@ -7,10 +5,12 @@ public class AttackState : BaseState
   private float moveTimer;
   private float losePlayerTimer;
   private float shotTimer;
+  private GameObject projectile;
 
   public override void Enter()
   {
-    
+    projectile = Resources.Load("Prefabs/Bullet") as GameObject;
+    Debug.Log("paukku: ", projectile);
   }
 
   public override void Exit()
@@ -46,25 +46,13 @@ public class AttackState : BaseState
     Transform gunBarrel = enemy.gunBarrel;
 
     //instiating bullet
-    GameObject bullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet") as GameObject, gunBarrel.position, enemy.transform.rotation);
+    GameObject bullet = GameObject.Instantiate(projectile, gunBarrel.position, enemy.transform.rotation);
 
     //Bullet direction and force
     Vector3 shootDirection = (enemy.Player.transform.position  + (Vector3.up * 1f) - gunBarrel.transform.position).normalized;
-    bullet.GetComponent<Rigidbody>().velocity = shootDirection * 40f;
+    bullet.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(-3f, 3f), Vector3.up) * shootDirection * 40f;
 
     Debug.Log("shoot");
     shotTimer = 0;
   }
-
-  // Start is called before the first frame update
-  void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

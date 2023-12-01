@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 892158709702739399}
   - component: {fileID: 892158709702739396}
   - component: {fileID: 892158709702739397}
-  - component: {fileID: 892158709702739394}
+  - component: {fileID: 6616317891191743437}
   m_Layer: 6
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -126,7 +126,7 @@ MonoBehaviour:
     impartPlatformRotation: 0
     impartPlatformVelocity: 0
   _minSlopeLimit: 0.7069833
---- !u!114 &892158709702739394
+--- !u!114 &6616317891191743437
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,10 +135,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 892158709702739395}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff2118720b1b70f41aaf198a7f556395, type: 3}
+  m_Script: {fileID: 11500000, guid: 90e5287a14ef5b34980a08b5a1f9cf40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputActions: {fileID: -944628639613478452, guid: 216200a53981723469659f2be0cef848,
+  _inputActions: {fileID: -944628639613478452, guid: 937a152324a9102498b66271c0e181eb,
     type: 3}
   _rotationMode: 0
   _rotationRate: 540
@@ -196,6 +196,15 @@ MonoBehaviour:
   _forwardSpeedMultiplier: 1
   _backwardSpeedMultiplier: 1
   _strafeSpeedMultiplier: 1
+  interactInputAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1 &892158709978256007
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,15 +666,6 @@ MonoBehaviour:
   visualizeShootDirection: 0
   shootFromViewpoint: 1
   shootVelocity: 50
-  gunAnimator: {fileID: 4418378616293834236}
-  gunProjectile: {fileID: 6491588468217141932, guid: 66fe778c2d4afc740bdc55e8435fed3a,
-    type: 3}
-  gunParticles: {fileID: 6282074326432425397, guid: 7d6078af43815cd46afd41ca1e8f64e1,
-    type: 3}
-  gunMeshTransform: {fileID: 4241127011999582428}
-  gunShootPoint: {fileID: 7171193435466962458}
-  playerViewpoint: {fileID: 4418378617198104543}
-  crosshairs: {fileID: 0}
   maximumAngleCompensation: 40
   lookShootAngleCompensationCurve:
     serializedVersion: 2
@@ -691,6 +691,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  gunAnimator: {fileID: 4418378616293834236}
+  gunProjectile: {fileID: 6491588468217141932, guid: 66fe778c2d4afc740bdc55e8435fed3a,
+    type: 3}
+  gunParticles: {fileID: 6282074326432425397, guid: 7d6078af43815cd46afd41ca1e8f64e1,
+    type: 3}
+  gunMeshTransform: {fileID: 4241127011999582428}
+  gunShootPoint: {fileID: 7171193435466962458}
+  playerViewpoint: {fileID: 4418378617198104543}
+  crosshairs: {fileID: 0}
   lookShootAngleCompensation: 0
   normalizedCompensation: 0
   lookShootAngleCompensationExp: 0
