@@ -6082,6 +6082,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptMessage: Press button
+  door: {fileID: 2035622412}
 --- !u!1 &2035622412
 GameObject:
   m_ObjectHideFlags: 0
