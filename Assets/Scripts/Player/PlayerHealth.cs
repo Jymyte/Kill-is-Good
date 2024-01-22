@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
   private float health;
   private float lerpTimer;
@@ -11,11 +12,15 @@ public class HealthBar : MonoBehaviour
   public float chipSpeed = 2f;
   public Image frontHealthBar;
   public Image backHealthBar;
+  [SerializeField]
+  private TextMeshProUGUI healthTMP;
+  private string healthText;
 
   // Start is called before the first frame update
   void Start()
   {
     health = maxHealth;
+    UpdateHealthText();
   }
 
   // Update is called once per frame
@@ -28,7 +33,6 @@ public class HealthBar : MonoBehaviour
   }
 
   public void UpdateHealthUI() {
-    Debug.Log(health);
     float fillF = frontHealthBar.fillAmount;
     float fillB = backHealthBar.fillAmount;
     float hFraction = health / maxHealth;
@@ -52,10 +56,18 @@ public class HealthBar : MonoBehaviour
   public void TakeDamage(float damage) {
     health -= damage;
     lerpTimer = 0f;
+    UpdateHealthText();
   }
 
-   public void RestoreHealth(float healAmount) {
+  public void RestoreHealth(float healAmount) {
     health += healAmount;
     lerpTimer = 0f;
+    UpdateHealthText();
+  }
+
+  void UpdateHealthText() {
+    if (health > maxHealth) health = maxHealth;
+    healthText = health + " / " + maxHealth;
+    healthTMP.text = healthText;
   }
 }
