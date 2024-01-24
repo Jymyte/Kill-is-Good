@@ -1,5 +1,4 @@
 using EasyCharacterMovement;
-using MyScripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,13 +10,13 @@ public class PlayerInteract : MonoBehaviour
   [SerializeField]
   private LayerMask mask;
   private PlayerUI playerUI;
-  private MyCharacter character;
+  private KillIsGoodCharacter character;
   private InputAction interactInputAction;
 
   private void Start() {
     cam = GetComponent<FirstPersonCharacter>().camera;
     playerUI = GetComponent<PlayerUI>();
-    character = GetComponent<MyCharacter>();
+    character = GetComponent<KillIsGoodCharacter>();
     interactInputAction = character.interactInputAction;
   }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using EasyCharacterMovement;
+using EasyCharacterMovement.Examples.Events.CharacterEventsExample;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,15 +10,25 @@ public class Enemy : MonoBehaviour
   private StateMachine stateMachine;
   private NavMeshAgent agent;
   private GameObject player;
-
+  private KillIsGoodCharacter playerCharacter;
+  private Vector3 lastKnownPos;
+  private Vector3 lastKnownDir;
   public ZombieCharacter character;
   public NavMeshAgent Agent { get => agent; }
-  public GameObject Player {get => player; }
+  public GameObject Player { get => player; }
+  public KillIsGoodCharacter PlayerCharacter {get => playerCharacter; }
+  public Vector3 LastKnownPos { get => lastKnownPos; set => lastKnownPos = value; }
+  public Vector3 LastKnownDir { get => lastKnownDir; set => lastKnownDir = value; }
   public Pathway path;
   [Header("Sight values")]
   public float sightDistance = 20f;
   public float fieldOfView = 85f;
   public float eyeHeight;
+
+  [SerializeField]
+  public GameObject debugSphereLastPos;
+   [SerializeField]
+  public GameObject debugSphereSearchPos;
 
   [Header("Weapon values")]
   [SerializeField]
@@ -37,6 +48,7 @@ public class Enemy : MonoBehaviour
     agent = GetComponent<NavMeshAgent>();
     character = GetComponent<ZombieCharacter>();
     player = GameObject.FindGameObjectWithTag("Player"); 
+    playerCharacter = player.GetComponent<KillIsGoodCharacter>();
 
     Debug.Log("yoo");
     stateMachine.Initialize();

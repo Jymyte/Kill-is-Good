@@ -2,9 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace MyScripts
-{
-  public class MyCharacter : FirstPersonCharacter
+  public class KillIsGoodCharacter : FirstPersonCharacter
   {
     /// <summary>
     /// Interact InputAction.
@@ -67,4 +65,3 @@ namespace MyScripts
       }
     }
   }
-}
